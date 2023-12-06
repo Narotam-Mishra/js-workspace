@@ -1,14 +1,24 @@
-class Counter{
-    constructor(n){
-        this.n = n;
-    }
+class Counter {
+  constructor(init) {
+    this.init = init;
+    this.counter = counter;
+  }
 
-    increment(){
-        return this.n++;
-    }
+  increment() {
+    return ++this.counter;
+  }
+
+  decrement() {
+    return --this.counter;
+  }
+
+  reset() {
+    this.counter = this.init;
+    return this.counter;
+  }
 }
 
-const counter2 = new Counter(10);
-counter2.increment(); //11
-counter2.increment(); //12
-counter2.increment(); //13
+let cObj = new Counter(5);
+console.log(cObj.increment());
+console.log(cObj.reset());
+console.log(cObj.decrement());
