@@ -17,3 +17,29 @@ let checkIfInstanceOf = function(obj, classFunction) {
     }
     return false;
 };
+
+// Approach - 2
+
+function isInstance(value, Class) {
+    // Handle undefined values and classes
+    if (value === undefined || Class === undefined) {
+      return false;
+    }
+  
+    // Check for direct instances using instanceof
+    if (value instanceof Class) {
+      return true;
+    }
+  
+    // Iterate through the prototype chain to check for inherited methods
+    let proto = Object.getPrototypeOf(value);
+    while (proto !== null) {
+      if (proto === Class.prototype) {
+        return true;
+      }
+      proto = Object.getPrototypeOf(proto);
+    }
+  
+    // If no match found, return false
+    return false;
+  }
