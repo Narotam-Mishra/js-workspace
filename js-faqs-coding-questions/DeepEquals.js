@@ -4,6 +4,8 @@
 function isDeepEuals(a, b) {
   // check if both values are objects and not null
   if (typeof a === "object" && a !== null && typeof b === "object" && b !== null) {
+    
+    // extact key from both objects
     const keysA = Object.keys(a);
     const keysB = Object.keys(b);
 
