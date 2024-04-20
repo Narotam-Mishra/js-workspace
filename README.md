@@ -145,6 +145,8 @@ executeTasksInParallel([todoTask1, todoTask2, todoTask3, todoTask4, todoTask5]);
 
 - [Implement a pipe function which chains N number of functions]
 
+### Implementation
+
 ```javascript
 function pipe(...functions){
     return function(input){
@@ -171,6 +173,8 @@ console.log(res); // output - 100
 ```
 
 - [Implement a function to execute N async tasks in race.]
+
+### Implementation
 
 ```javascript
 // execute n-tasks in race
