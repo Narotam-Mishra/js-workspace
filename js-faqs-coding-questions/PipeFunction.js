@@ -22,4 +22,4 @@ function squareNum(x){
 }
 
 const res = pipe(addNum, multiplyNum, squareNum)(4);
-console.log(res);
+console.log(res); // output - 100

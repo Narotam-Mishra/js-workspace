@@ -34,6 +34,9 @@
 - [2721. Execute Asynchronous Functions in Parallel](https://leetcode.com/problems/execute-asynchronous-functions-in-parallel/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 
 ## JSON
+- [2727. Is Object Empty](https://leetcode.com/problems/is-object-empty/description/?envType=study-plan-v2&envId=30-days-of-javascript)
+
+
 
 ## Tricky JS Interview Coding Questions
 
@@ -139,3 +142,31 @@ function delay(ms){
 // call the main executeTasksInParallel(tasks) function
 executeTasksInParallel([todoTask1, todoTask2, todoTask3, todoTask4, todoTask5]);
 ```
+
+- [Implement a pipe function which chains N number of functions]
+
+```javascript
+function pipe(...functions){
+    return function(input){
+        return functions.reduce((acc, func) => func(acc), input);
+    };
+}
+
+// example usage
+
+function addNum(x){
+    return x + 1
+}
+
+function multiplyNum(x){
+    return x * 2;
+}
+
+function squareNum(x){
+    return x * x;
+}
+
+const res = pipe(addNum, multiplyNum, squareNum)(4);
+console.log(res); // output - 100
+```
+
