@@ -29,7 +29,7 @@
 - [2715. Timeout Cancellation](https://leetcode.com/problems/timeout-cancellation/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2725. Interval Cancellation](https://leetcode.com/problems/interval-cancellation/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2637. Promise Time Limit](https://leetcode.com/problems/promise-time-limit/description/?envType=study-plan-v2&envId=30-days-of-javascript)
-- [2622. Cache With Time Limit](https://leetcode.com/problems/cache-with-time-limit/description/?envType=study-plan-v2&envId=30-days-of-javascript)
+- [2622. Cache With Time Limit](https://leetcode.com/problems/cache-with-time-limit/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
 - [2627. Debounce](https://leetcode.com/problems/debounce/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2721. Execute Asynchronous Functions in Parallel](https://leetcode.com/problems/execute-asynchronous-functions-in-parallel/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 
@@ -40,7 +40,7 @@
 
 ## Tricky JS Interview Coding Questions
 
-- [Implement a function to execute N async tasks in series in JS]
+- [Implement a function to execute N async tasks in series in JS](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -93,7 +93,7 @@ function delay(ms){
 executeTasksInSeries([todoTask1, todoTask2, todoTask3, todoTask4, todoTask5]);
 ```
 
-- [Implement a function to execute N async tasks in parallel in JS]
+- [Implement a function to execute N async tasks in parallel in JS](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -143,7 +143,7 @@ function delay(ms){
 executeTasksInParallel([todoTask1, todoTask2, todoTask3, todoTask4, todoTask5]);
 ```
 
-- [Implement a pipe function which chains N number of functions]
+- [Implement a pipe function which chains N number of functions](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -172,7 +172,7 @@ const res = pipe(addNum, multiplyNum, squareNum)(4);
 console.log(res); // output - 100
 ```
 
-- [Implement a function to execute N async tasks in race.]
+- [Implement a function to execute N async tasks in race.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -237,3 +237,53 @@ executeAsyncTasksInRace(tasks)
   .catch((error) => console.log("Error:", error));
 
 ```
+
+- [Implement a debounce function that comes with a cancel method to cancel delayed invocations.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+
+```javascript
+function debounce(func, delay){
+    // Initialize a variable to hold the timeout ID.
+    let timerId;
+
+    // Define the debounced function.
+    function debounced(...args){
+        // Clear any previously set timeout to prevent the original function from being invoked.
+        clearTimeout(timerId);
+
+        // Set a new timeout, delaying the invocation of the original function.
+        timerId = setTimeout(() => {
+            // Invoke the original function with the provided arguments after the delay.
+            func.apply(this, args);
+        }, delay)
+    }
+
+    // attach a cancel method to the debounced function to allow cancelling the delayed invocation
+    debounced.cancel = function(){
+        // Clear the timeout to cancel the delayed invocation
+        clearTimeout(timerId);
+    }
+
+    // return the debounced function
+
+    return debounced;
+}
+
+// example usage
+
+function exampleFun(){
+    console.log("Debounced function call...");
+}
+
+const debouncedFunction = debounce(exampleFun, 2000);
+
+// Function is called after 1 second
+debouncedFunction();
+
+// Somewhere before the delay is over
+// Cancels the delayed invocation
+debouncedFunction.cancel();
+
+```
+
+- This debounce function creates a debounced version of another function,
+which delays invoking the original function until after a certain delay has passed.
