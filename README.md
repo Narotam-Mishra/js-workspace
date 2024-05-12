@@ -285,5 +285,122 @@ debouncedFunction.cancel();
 
 ```
 
-- This debounce function creates a debounced version of another function,
-which delays invoking the original function until after a certain delay has passed.
+- This debounce function creates a debounced version of another function, which delays invoking the original function until after a certain delay has passed.
+
+- [Implement the functionality behaviour of Promise.any() method](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+
+```javascript
+Promise.customAny = function (promises) {
+  return new Promise((resolve, reject) => {
+    let errors = [];
+    let completed = 0;
+
+    for (let promise of promises) {
+      Promise.resolve(promise)
+        .then((val) => resolve(val))
+        .catch((error) => {
+          errors.push(error);
+          completed++;
+          if (completed === promises.length) {
+            reject(new AggregateError("All promises were rejected", error));
+          }
+        });
+    }
+  });
+};
+
+// example usage
+
+let promise1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Promise 1 resolved");
+    }, 1000);
+});
+
+let promise2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject("Promise 2 rejected");
+    }, 1500);
+});
+
+let promise3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Promise 3 resolved");
+    }, 2000);
+});
+
+Promise.customAny([promise1, promise2, promise3])
+  .then((val) => {
+    console.log(val);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+```
+
+- [Implement a function that determines if two values are deep equal.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+
+```javascript
+function isDeepEuals(a, b) {
+  // check if both values are objects and not null
+  if (typeof a === "object" && a !== null && typeof b === "object" && b !== null) {
+    
+    // extact key from both objects
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+
+    // check if both objects have the same number of keys
+    if (keysA.length !== keysB.length) {
+      return false;
+    }
+
+    // Check if all keys in object 'a' are present in object 'b'
+    for (const key of keysA) {
+      if (!keysB.includes(key)) {
+        return false;
+      }
+
+      // recursively check the values of each key
+      if (!isDeepEuals(a[key], b[key])) {
+        return false;
+      }
+    }
+    //Objects are deeply equal
+    return true; 
+  }else{
+    // Compare primitive values directly
+    return a === b;
+  }
+}
+
+
+const obj1 = { a: 1, b: { c: 2 } };
+const obj2 = { a: 1, b: { c: 2 } };
+const obj3 = { a: 1, b: { c: 3 } };
+
+console.log(isDeepEuals(obj1, obj2)); // true - they are deeply equal hence return true
+console.log(isDeepEuals(obj1, obj3)); // false - as they are not deeply equal
+
+```
+
+- [Implement a function that serializes a Javascript value into a JSON string.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+
+```javascript
+function serializeToJSON(value){
+    try {
+        // Use JSON.stringify to serialize the value to a JSON string
+        const jsonString = JSON.stringify(value);
+        return jsonString;
+    } catch (error) {
+        // Handle any errors that occur during serialization
+        console.error('Error serializing value to JSON:', error);
+        return null;
+    }
+}
+
+let obj = { name: 'Peter', age: 24, isAdmin: true};
+const jsonString = serializeToJSON(obj);
+console.log(jsonString);
+
+```
