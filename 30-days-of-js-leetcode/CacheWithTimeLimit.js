@@ -3,7 +3,7 @@
 
 // Approach - 1 (using Map with function)
 
-let TimeLimitedCache = function() {
+let TimeLimitedCache2 = function() {
     // using map
     this.cache = new Map();
 };
@@ -15,7 +15,7 @@ let TimeLimitedCache = function() {
  * @return {boolean} if un-expired key already existed
  */
 
-TimeLimitedCache.prototype.set = function(key, value, duration) {
+TimeLimitedCache2.prototype.set = function(key, value, duration) {
     let keyAlreadyPresent = this.cache.has(key);
     // Both the value and duration should be overwritten if the key already exists
     if(keyAlreadyPresent){
@@ -37,7 +37,7 @@ TimeLimitedCache.prototype.set = function(key, value, duration) {
  * @param {number} key
  * @return {number} value associated with key
  */
-TimeLimitedCache.prototype.get = function(key) {
+TimeLimitedCache2.prototype.get = function(key) {
     if(!this.cache.has(key)){
         return -1;
     }
@@ -48,7 +48,7 @@ TimeLimitedCache.prototype.get = function(key) {
 /** 
  * @return {number} count of non-expired keys
  */
-TimeLimitedCache.prototype.count = function() {
+TimeLimitedCache2.prototype.count = function() {
     return this.cache.size;
 };
 

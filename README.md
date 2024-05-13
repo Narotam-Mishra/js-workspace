@@ -29,8 +29,8 @@
 - [2715. Timeout Cancellation](https://leetcode.com/problems/timeout-cancellation/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2725. Interval Cancellation](https://leetcode.com/problems/interval-cancellation/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2637. Promise Time Limit](https://leetcode.com/problems/promise-time-limit/description/?envType=study-plan-v2&envId=30-days-of-javascript)
-- [2622. Cache With Time Limit](https://leetcode.com/problems/cache-with-time-limit/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
-- [2627. Debounce](https://leetcode.com/problems/debounce/description/?envType=study-plan-v2&envId=30-days-of-javascript)
+- [2622. Cache With Time Limit](https://leetcode.com/problems/cache-with-time-limit/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
+- [2627. Debounce](https://leetcode.com/problems/debounce/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
 - [2721. Execute Asynchronous Functions in Parallel](https://leetcode.com/problems/execute-asynchronous-functions-in-parallel/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 
 ## JSON
@@ -402,5 +402,35 @@ function serializeToJSON(value){
 let obj = { name: 'Peter', age: 24, isAdmin: true};
 const jsonString = serializeToJSON(obj);
 console.log(jsonString);
+
+```
+
+- [Implement a function that recursively flattens an array into a single level deep.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+```javascript
+function flattenArray(arr){
+    // intialize an empty array to store flattended elements
+    let flattenedArr = [];
+
+    // iterate through each array's element
+    arr.forEach(function(ele){
+        // If the element is an array, recursively call flattenArray on it
+        if(Array.isArray(ele)){
+            // Concatenate the flattened result with the current flattenedArray
+            flattenedArr = flattenedArr.concat(flattenArray(ele));
+        }else{
+            // If the element is not an array, push it to the flattenedArray
+            flattenedArr.push(ele);
+        }
+    });
+
+    // return the flattened array
+    return flattenedArr;
+}
+
+// Example usage:
+const nestedArray = [1, [2, [3, 4], 5], 6];
+const flattened = flattenArray(nestedArray);
+console.log(flattened);
 
 ```
