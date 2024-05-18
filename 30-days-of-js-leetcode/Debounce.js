@@ -3,7 +3,7 @@
 
 // Approach - 1
 
-let debounce = function(fn, t) {
+let debounce1 = function(fn, t) {
     let timerId;
     return function(...args) {
         // to restrict frequent function calls we will setTimeout()
