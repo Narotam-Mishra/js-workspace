@@ -31,12 +31,12 @@
 - [2637. Promise Time Limit](https://leetcode.com/problems/promise-time-limit/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2622. Cache With Time Limit](https://leetcode.com/problems/cache-with-time-limit/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
 - [2627. Debounce](https://leetcode.com/problems/debounce/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
-- [2721. Execute Asynchronous Functions in Parallel](https://leetcode.com/problems/execute-asynchronous-functions-in-parallel/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
+- [2721. Execute Asynchronous Functions in Parallel](https://leetcode.com/problems/execute-asynchronous-functions-in-parallel/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 
 ## JSON
 - [2727. Is Object Empty](https://leetcode.com/problems/is-object-empty/description/?envType=study-plan-v2&envId=30-days-of-javascript)
-- [2677. Chunk Array](https://leetcode.com/problems/chunk-array/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
-- [2619. Array Prototype Last](https://leetcode.com/problems/array-prototype-last/description/?envType=study-plan-v2&envId=30-days-of-javascript)
+- [2677. Chunk Array](https://leetcode.com/problems/chunk-array/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
+- [2619. Array Prototype Last](https://leetcode.com/problems/array-prototype-last/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
 - [2631. Group By](https://leetcode.com/problems/group-by/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2724. Sort By](https://leetcode.com/problems/sort-by/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2722. Join Two Arrays by ID](https://leetcode.com/problems/join-two-arrays-by-id/description/?envType=study-plan-v2&envId=30-days-of-javascript)
@@ -496,5 +496,54 @@ console.log(memoizedFn(3)); // Fetching from cache: 3, then logs 9
 console.log(memoizedFn(5)); // Computing and storing in cache: 5, then logs 25
 console.log(memoizedFn(5)); // Fetching from cache: 5, then logs 25
 console.log(memoizedFn(4)); // Fetching from cache: 4, then logs 16
+
+```
+
+- [Implement the functionality behaviour of Promise.allSettled](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+```javascript
+function allSettled(promises) {
+  return new Promise((resolve) => {
+    let results = [];
+    let completedPromises = 0;
+
+    // iterate through each promise
+    promises.forEach((promise, index) => {
+      // if promise is resolved
+      Promise.resolve(promise)
+        .then((value) => {
+          results[index] = {
+            status: "fulfilled",
+            value: value,
+          };
+        })
+        // if promise is rejected
+        .catch((reason) => {
+          results[index] = {
+            state: "rejected",
+            value: reason,
+          };
+        })
+        // finally block run despite of promise's success or failure
+        .finally(() => {
+          completedPromises++;
+          // once all promises are resolved then only proceed further
+          if (completedPromises === promises.length) {
+            resolve(results);
+          }
+        });
+    });
+  });
+}
+
+// example
+
+const promises = [
+    Promise.resolve(1),
+    Promise.reject('some_error'),
+    Promise.resolve(7)
+];
+
+allSettled(promises).then(results => console.log(results));
 
 ```
