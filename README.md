@@ -252,6 +252,8 @@ executeAsyncTasksInRace(tasks)
 
 - [Implement a debounce function that comes with a cancel method to cancel delayed invocations.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
+### Implementation
+
 ```javascript
 function debounce(func, delay){
     // Initialize a variable to hold the timeout ID.
@@ -300,6 +302,8 @@ debouncedFunction.cancel();
 - This debounce function creates a debounced version of another function, which delays invoking the original function until after a certain delay has passed.
 
 - [Implement the functionality behaviour of Promise.any() method](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+
+### Implementation
 
 ```javascript
 Promise.customAny = function (promises) {
@@ -353,6 +357,8 @@ Promise.customAny([promise1, promise2, promise3])
 
 - [Implement a function that determines if two values are deep equal.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
+### Implementation
+
 ```javascript
 function isDeepEuals(a, b) {
   // check if both values are objects and not null
@@ -398,6 +404,8 @@ console.log(isDeepEuals(obj1, obj3)); // false - as they are not deeply equal
 
 - [Implement a function that serializes a Javascript value into a JSON string.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
+### Implementation
+
 ```javascript
 function serializeToJSON(value){
     try {
@@ -418,6 +426,8 @@ console.log(jsonString);
 ```
 
 - [Implement a function that recursively flattens an array into a single level deep.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+### Implementation
 
 ```javascript
 function flattenArray(arr){
@@ -448,6 +458,8 @@ console.log(flattened);
 ```
 
 - [Implement a function that returns a memoized version of a function which accepts a single argument.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+### Implementation
 
 ```javascript
 
@@ -500,6 +512,8 @@ console.log(memoizedFn(4)); // Fetching from cache: 4, then logs 16
 ```
 
 - [Implement the functionality behaviour of Promise.allSettled](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+### Implementation
 
 ```javascript
 function allSettled(promises) {
@@ -561,6 +575,8 @@ obj.self = obj; // obj references itself
 - Approach : In this case, obj has a property self that points back to obj. This kind of structure can create problems with operations like deep copying or serialization (e.g., using JSON.stringify), as it can result in infinite loops or errors.
 
 - To handle circular references while performing a deep copy, we need to keep track of objects we have already copied. We'll use a WeakMap to map original objects to their copies. WeakMap is useful here because it allows garbage collection of entries when there are no other references to the keys i.e the original objects.
+
+### Implementation
 
 ```javascript
 function deepCopy(value, seen = new WeakMap()){
