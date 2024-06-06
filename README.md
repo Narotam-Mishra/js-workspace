@@ -36,10 +36,10 @@
 ## JSON
 - [2727. Is Object Empty](https://leetcode.com/problems/is-object-empty/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2677. Chunk Array](https://leetcode.com/problems/chunk-array/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
-- [2619. Array Prototype Last](https://leetcode.com/problems/array-prototype-last/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
-- [2631. Group By](https://leetcode.com/problems/group-by/description/?envType=study-plan-v2&envId=30-days-of-javascript)
-- [2724. Sort By](https://leetcode.com/problems/sort-by/description/?envType=study-plan-v2&envId=30-days-of-javascript)
-- [2722. Join Two Arrays by ID](https://leetcode.com/problems/join-two-arrays-by-id/description/?envType=study-plan-v2&envId=30-days-of-javascript)
+- [2619. Array Prototype Last](https://leetcode.com/problems/array-prototype-last/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
+- [2631. Group By](https://leetcode.com/problems/group-by/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
+- [2724. Sort By](https://leetcode.com/problems/sort-by/description/?envType=study-plan-v2&envId=30-days-of-javascript)[Solved]
+- [2722. Join Two Arrays by ID](https://leetcode.com/problems/join-two-arrays-by-id/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
 - [2625. Flatten Deeply Nested Array](https://leetcode.com/problems/flatten-deeply-nested-array/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2705. Compact Object](https://leetcode.com/problems/compact-object/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 
@@ -648,5 +648,44 @@ console.log(copy);
 
 // check for existence of circular reference
 console.log(copy.self === copy); // true, indicating the circular reference is preserved
+
+```
+
+- [Implement a function that deserializes a JSON string into a Javascript value.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+- Approach : To implement a function that deserializes a JSON string into a JavaScript value in plain JavaScript, we can use the JSON.parse() method. This method parses a JSON string and constructs the corresponding JavaScript value or object described by the string.
+
+### Implementation
+
+```javascript
+function deserializeJSON(jsonStr){
+    try {
+        return JSON.parse(jsonStr);
+    } catch (error) {
+        throw new Error("Invalid JSON string");
+    }
+}
+
+const jsonString = '{"name": "John", "age": 30, "isStudent": false, "courses": ["Math", "Science"]}';
+
+// const jsonString = { name: "Alice" };
+
+try {
+    const res = deserializeJSON(jsonString);
+    console.log(res);
+} catch (error) {
+    console.log(error);
+}
+
+
+/*
+Output
+{
+  name: 'John',
+  age: 30,
+  isStudent: false,
+  courses: [ 'Math', 'Science' ]
+}
+*/
 
 ```
