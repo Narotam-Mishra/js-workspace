@@ -37,7 +37,7 @@
 - [2727. Is Object Empty](https://leetcode.com/problems/is-object-empty/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2677. Chunk Array](https://leetcode.com/problems/chunk-array/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
 - [2619. Array Prototype Last](https://leetcode.com/problems/array-prototype-last/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
-- [2631. Group By](https://leetcode.com/problems/group-by/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
+- [2631. Group By](https://leetcode.com/problems/group-by/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Solved]
 - [2724. Sort By](https://leetcode.com/problems/sort-by/description/?envType=study-plan-v2&envId=30-days-of-javascript)[Solved]
 - [2722. Join Two Arrays by ID](https://leetcode.com/problems/join-two-arrays-by-id/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
 - [2625. Flatten Deeply Nested Array](https://leetcode.com/problems/flatten-deeply-nested-array/description/?envType=study-plan-v2&envId=30-days-of-javascript)
@@ -690,12 +690,13 @@ Output
 
 ```
 
+
 - [Implement a promisify function that allows the original function to override the return value.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 
 - Approach : To implement a promisify function that allows the original function to override the return value, you can follow these steps:
 
-a). Wrap the original function in a Promise.
+a). Wrap the original function in a Promise.<br>
 b). Allow the original function to provide a custom resolution value.
 
 ### Implementation
