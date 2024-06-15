@@ -812,3 +812,50 @@ arr[-1] = 10;
 console.log(arr[4]); // output - 10
 
 ```
+
+- [Implement your custom version of the call method which sets the "this" context.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+- Approach : To implement a custom version of the call method in JavaScript, we can define a method on the Function.prototype to mimic the behavior of the built-in call method. The call method in JavaScript allows us to call a function with a specified this value and arguments provided individually.
+
+### Steps to follow
+
+- Define the custom call method on the Function.prototype :- This ensures that all functions will have access to this custom call method.
+- Set the this context :- Use the first argument passed to the custom call method as the this context for the function.
+- Handle arguments :- Collect the remaining arguments to pass to the function.
+- Invoke the function :- Use the specified this context and arguments to invoke the function
+
+### Implementation
+
+```javascript
+Function.prototype.customCall = function(context, ...args){
+    //step1 - if context is null or undefined, set it to the global object (window in browsers, global in Node.js)
+    context = context || globalThis;
+
+    //step2 - create a unique property on the context to avoid property collision
+    const fnSymbol = Symbol();
+
+    //step3 - assign the function (this) to the unique property of the context
+    context[fnSymbol] = this;
+
+    //step4 - invoke the function with the context and arguments
+    const res = context[fnSymbol](...args);
+
+    // step5 - delete the temporary property
+    delete context[fnSymbol];
+
+    //step6 - return the result of the function call
+    return res;
+}
+
+// example usage
+
+function greet(grt, pnc){
+    return `${grt} ${this.name}${pnc}`;
+}
+
+const person = { name: "Peter" };
+
+// using customCall() 
+console.log(greet.customCall(person, "Hello", "!"));  // Output - Hello Peter!
+
+```
