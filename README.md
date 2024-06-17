@@ -52,7 +52,7 @@
 
 ## Tricky JS Interview Coding Questions
 
-- [Implement a function to execute N async tasks in series in JS](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+### [Implement a function to execute N async tasks in series in JS](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -105,7 +105,7 @@ function delay(ms){
 executeTasksInSeries([todoTask1, todoTask2, todoTask3, todoTask4, todoTask5]);
 ```
 
-- [Implement a function to execute N async tasks in parallel in JS](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+### [Implement a function to execute N async tasks in parallel in JS](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -155,7 +155,7 @@ function delay(ms){
 executeTasksInParallel([todoTask1, todoTask2, todoTask3, todoTask4, todoTask5]);
 ```
 
-- [Implement a pipe function which chains N number of functions](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+### [Implement a pipe function which chains N number of functions](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -184,7 +184,7 @@ const res = pipe(addNum, multiplyNum, squareNum)(4);
 console.log(res); // output - 100
 ```
 
-- [Implement a function to execute N async tasks in race.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+### [Implement a function to execute N async tasks in race.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -250,7 +250,7 @@ executeAsyncTasksInRace(tasks)
 
 ```
 
-- [Implement a debounce function that comes with a cancel method to cancel delayed invocations.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+### [Implement a debounce function that comes with a cancel method to cancel delayed invocations.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -301,7 +301,7 @@ debouncedFunction.cancel();
 
 - This debounce function creates a debounced version of another function, which delays invoking the original function until after a certain delay has passed.
 
-- [Implement the functionality behaviour of Promise.any() method](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+### [Implement the functionality behaviour of Promise.any() method](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -355,7 +355,7 @@ Promise.customAny([promise1, promise2, promise3])
 
 ```
 
-- [Implement a function that determines if two values are deep equal.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+### [Implement a function that determines if two values are deep equal.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -402,7 +402,7 @@ console.log(isDeepEuals(obj1, obj3)); // false - as they are not deeply equal
 
 ```
 
-- [Implement a function that serializes a Javascript value into a JSON string.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
+### [Implement a function that serializes a Javascript value into a JSON string.](https://github.com/Narotam-Mishra/js-workspace#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -425,7 +425,7 @@ console.log(jsonString);
 
 ```
 
-- [Implement a function that recursively flattens an array into a single level deep.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement a function that recursively flattens an array into a single level deep.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -457,7 +457,7 @@ console.log(flattened);
 
 ```
 
-- [Implement a function that returns a memoized version of a function which accepts a single argument.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement a function that returns a memoized version of a function which accepts a single argument.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -511,7 +511,7 @@ console.log(memoizedFn(4)); // Fetching from cache: 4, then logs 16
 
 ```
 
-- [Implement the functionality behaviour of Promise.allSettled](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement the functionality behaviour of Promise.allSettled](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 ### Implementation
 
@@ -562,7 +562,7 @@ allSettled(promises).then(results => console.log(results));
 
 ```
 
-- [Implement a function that performs a deep copy of a value, and also handles circular references.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement a function that performs a deep copy of a value, and also handles circular references.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 - A circular reference occurs when an object references itself directly or indirectly through another object. For example:
 
@@ -651,7 +651,7 @@ console.log(copy.self === copy); // true, indicating the circular reference is p
 
 ```
 
-- [Implement a function that deserializes a JSON string into a Javascript value.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement a function that deserializes a JSON string into a Javascript value.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 - Approach : To implement a function that deserializes a JSON string into a JavaScript value in plain JavaScript, we can use the JSON.parse() method. This method parses a JSON string and constructs the corresponding JavaScript value or object described by the string.
 
@@ -691,10 +691,10 @@ Output
 ```
 
 
-- [Implement a promisify function that allows the original function to override the return value.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement a promisify function that allows the original function to override the return value.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 
-- Approach : To implement a promisify function that allows the original function to override the return value, you can follow these steps:
+- Approach : To implement a promisify function that allows the original function to override the return value, we can follow below steps:
 
 a). Wrap the original function in a Promise.<br>
 b). Allow the original function to provide a custom resolution value.
@@ -754,7 +754,7 @@ promisifiedFunction(4, 4)
 
 ```
 
-- [Implement negative indexing in Array using Proxies.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement negative indexing in Array using Proxies.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 - Approach : To implement negative indexing in an Array using Proxies, we can intercept the get and set operations on the array. This allows you to handle negative indices by converting them to their positive counterparts.
 
@@ -813,7 +813,7 @@ console.log(arr[4]); // output - 10
 
 ```
 
-- [Implement your custom version of the call method which sets the "this" context.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement your custom version of the call method which sets the "this" context.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 - Approach : To implement a custom version of the call method in JavaScript, we can define a method on the Function.prototype to mimic the behavior of the built-in call method. The call method in JavaScript allows us to call a function with a specified this value and arguments provided individually.
 
@@ -857,5 +857,56 @@ const person = { name: "Peter" };
 
 // using customCall() 
 console.log(greet.customCall(person, "Hello", "!"));  // Output - Hello Peter!
+
+```
+
+### [Implement your own Lodash _.get method which gets value from the path](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+### Steps to follow
+
+1. Path Parsing 
+- The path string is first transformed to replace [] notation with dot notation. For example, 'a[0].b.c' becomes 'a.0.b.c'.
+- This is achieved using the replace method with a regular expression: path.replace(/\[(\w+)\]/g, '.$1').
+- The resulting string is then split by . into an array of keys.
+
+2. Traversal
+- The code traverses the object using the keys in the path array.
+- If any key does not exist on the current object, the default value is returned.
+
+3. Default Value Handling
+- After traversal, if the resulting value is undefined, the provided default value is returned.
+
+### Implementation
+
+```javascript
+function get(obj, path, defaultVal){
+    // convert string path into an array of keys
+    if(typeof path === 'string'){
+        path = path.replace(/\[(\w+)\]/g, '.$1').split('.');
+    }
+
+    // traverse the object along the path
+    let result = obj;
+    for(let key of path){
+        // if the key is not in the object, return the default value
+        if(result === undefined || result === null || !result.hasOwnProperty(key)){
+            return defaultVal;
+        }
+        result = result[key];
+    }
+
+    // if the final result is undefined, return the default value
+    return result === undefined ? defaultVal : result;
+}
+
+// using get()
+
+const obj = { a: [{ b: { c: 3 } }] };
+
+console.log(get(obj, 'a[0].b.c')); // 3
+console.log(get(obj, ['a', 0, 'b', 'c'])); // 3
+console.log(get(obj, 'a.b.c', 'default')); // default
+console.log(get(obj, 'a[0].b.c.d', 'default')); // default
+console.log(get(obj, 'a[1].b.c', 'default')); // default
 
 ```
