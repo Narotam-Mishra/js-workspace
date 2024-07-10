@@ -37,16 +37,16 @@
 - [2727. Is Object Empty](https://leetcode.com/problems/is-object-empty/description/?envType=study-plan-v2&envId=30-days-of-javascript)
 - [2677. Chunk Array](https://leetcode.com/problems/chunk-array/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
 - [2619. Array Prototype Last](https://leetcode.com/problems/array-prototype-last/description/?envType=study-plan-v2&envId=30-days-of-javascript) 
-- [2631. Group By](https://leetcode.com/problems/group-by/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Solved]
-- [2724. Sort By](https://leetcode.com/problems/sort-by/description/?envType=study-plan-v2&envId=30-days-of-javascript)[Solved]
-- [2722. Join Two Arrays by ID](https://leetcode.com/problems/join-two-arrays-by-id/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS - Unsolved]
-- [2625. Flatten Deeply Nested Array](https://leetcode.com/problems/flatten-deeply-nested-array/description/?envType=study-plan-v2&envId=30-days-of-javascript)
-- [2705. Compact Object](https://leetcode.com/problems/compact-object/description/?envType=study-plan-v2&envId=30-days-of-javascript)
+- [2631. Group By](https://leetcode.com/problems/group-by/description/?envType=study-plan-v2&envId=30-days-of-javascript)
+- [2724. Sort By](https://leetcode.com/problems/sort-by/description/?envType=study-plan-v2&envId=30-days-of-javascript)
+- [2722. Join Two Arrays by ID](https://leetcode.com/problems/join-two-arrays-by-id/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS_Unsolved]
+- [2625. Flatten Deeply Nested Array](https://leetcode.com/problems/flatten-deeply-nested-array/description/?envType=study-plan-v2&envId=30-days-of-javascript) [TS_Solved]
+- [2705. Compact Object](https://leetcode.com/problems/compact-object/description/?envType=study-plan-v2&envId=30-days-of-javascript)[TS_Unsolved]
 
 ## Classes
-- [2694. Event Emitter](https://leetcode.com/problems/event-emitter/description/?envType=study-plan-v2&envId=30-days-of-javascript)
-- [2695. Array Wrapper](https://leetcode.com/problems/array-wrapper/description/?envType=study-plan-v2&envId=30-days-of-javascript)
-- [2726. Calculator with Method Chaining](https://leetcode.com/problems/calculator-with-method-chaining/description/?envType=study-plan-v2&envId=30-days-of-javascript)
+- [2694. Event Emitter](https://leetcode.com/problems/event-emitter/description/?envType=study-plan-v2&envId=30-days-of-javascript)[TS_Unsolved]
+- [2695. Array Wrapper](https://leetcode.com/problems/array-wrapper/description/?envType=study-plan-v2&envId=30-days-of-javascript)[TS_Solved]
+- [2726. Calculator with Method Chaining](https://leetcode.com/problems/calculator-with-method-chaining/description/?envType=study-plan-v2&envId=30-days-of-javascript)[TS_Solved]
 
 
 
@@ -1019,3 +1019,69 @@ console.log(customTypeof(Symbol('symbol'))); // 'symbol'
 
 ```
 
+### [Implement your own split method in JS](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+### Steps
+
+1. Function Definition :-
+- The function customSplit takes two parameters: str (the string to be split) and separator (the character or substring used as the delimiter).
+
+2. Initialization :-
+- An empty array result 'res' is initialized to store the substrings.
+- A temporary string temp is initialized to build the current substring.
+
+3. Iteration :-
+- A for loop iterates over each character in the input string str.
+- Inside the loop, an if statement checks if the current character matches the separator.
+- If a match is found, the current temp substring is pushed to the result array, and temp is reset to an empty string.
+- If there is no match, the current character is added to temp.
+
+4. Final Substring :-
+- After the loop ends, any remaining characters in temp are pushed to the result array to account for the last substring.
+
+5. Return Result :-
+- The result array 'res',  which now contains all the substrings, is returned.
+
+```javascript
+function customSplit(str, separator){
+    // intialize an empty array 'res' to hold the split strings
+    const res = [];
+
+    // intialize a temporary 'temp' variable to build the current substring
+    let temp = '';
+
+    // iterate through each character in the input string
+    for(let i=0; i<str.length; i++){
+        // check if the current character matches the separator
+        if(str[i] === separator){
+            // if it matches, push the temporary substring to the result array
+            res.push(temp);
+
+            // reset the temporary variable for the next substring
+            temp = '';
+        }else{
+            // if it doesn't match, add the current character to the temporary substring
+            temp += str[i];
+        }
+    }
+
+    // after the loop ends, push any remaining characters in temp to the result array
+    res.push(temp);
+
+    // return the array of substrings
+    return res;
+}
+
+
+// test above code
+const str = "hello-world-this-is-a-test";
+const separator = "-";
+const splitArr = customSplit(str, separator);
+
+console.log(splitArr);
+
+/*
+Output - [ 'hello', 'world', 'this', 'is', 'a', 'test' ]
+*/
+
+```

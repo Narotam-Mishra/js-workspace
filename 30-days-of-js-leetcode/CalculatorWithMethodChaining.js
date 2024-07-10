@@ -1,7 +1,7 @@
 
 // Problem link - https://leetcode.com/problems/calculator-with-method-chaining/description/?envType=study-plan-v2&envId=30-days-of-javascript
 
-class Calculator {
+class Calculator1 {
     
     constructor(value) {
        this.result = value; 
