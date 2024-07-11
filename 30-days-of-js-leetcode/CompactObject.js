@@ -3,7 +3,7 @@
 
 // Approach - 1 (using Recursion)
 
-let compactObject = function(obj) {
+let compactObject1 = function(obj) {
     if(typeof obj === 'object'){
         if(Array.isArray(obj)){
             let temp1 = []
@@ -28,7 +28,7 @@ let compactObject = function(obj) {
 
 // Approach - 2 (Recursion, clean approach)
 
-let compactObject1 = function(obj) {
+let compactObject2 = function(obj) {
     if(obj === null) return null;
 
     // if type of object is an array

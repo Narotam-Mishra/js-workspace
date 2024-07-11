@@ -3,7 +3,7 @@
 
 // Approach - 1 (for of loop)
 
-let join = function(arr1, arr2) {
+let join1 = function(arr1, arr2) {
     let resObj = {};
     
     // iterate first array arr1 items
@@ -29,7 +29,7 @@ let join = function(arr1, arr2) {
 
 // Approach - 2 (using for and for in loop)
 
-var join1 = function(arr1, arr2) {
+var join2 = function(arr1, arr2) {
     let res = {};
     
     // iterate first array
