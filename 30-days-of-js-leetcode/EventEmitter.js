@@ -2,7 +2,7 @@
 // Problem link - https://leetcode.com/problems/event-emitter/?envType=study-plan-v2&envId=30-days-of-javascript
 
 // Approach - 1 ()
-class EventEmitter {
+class EventEmitter1 {
     
     /**
      * @param {string} eventName
@@ -47,7 +47,7 @@ class EventEmitter {
 
 // Approach - 2  (Efficient Approach)
 
-class EventEmitter {
+class EventEmitter2 {
     // using eventMap obj to return the required values
     eventMap = {};
     
