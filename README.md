@@ -1042,6 +1042,8 @@ console.log(customTypeof(Symbol('symbol'))); // 'symbol'
 5. Return Result :-
 - The result array 'res',  which now contains all the substrings, is returned.
 
+### Implementation
+
 ```javascript
 function customSplit(str, separator){
     // intialize an empty array 'res' to hold the split strings
@@ -1107,6 +1109,8 @@ Output - [ 'hello', 'world', 'this', 'is', 'a', 'test' ]
 6. Return Target Object :- 
 - Finally, the function returns the modified target object, similar to the native Object.assign.
 
+### Implementation
+
 ```javascript
 let customObjectAssign = function(target, ...sources){
     // check if the target is an object otherwise throw an error
@@ -1144,4 +1148,94 @@ const source2 = { c: 3 };
 const res = customObjectAssign(target, source1, source2);
 console.log(res);
 
+```
+
+### [Implement a custom String Tokenizer in JS](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+### Steps
+1. Define `constructor` :- Accepts the string to be tokenized and an optional delimiter string. If no delimiter is provided, it defaults to a space " ".
+
+2. Escape method (`escapeRegExp`): Escapes special characters in the delimiter string so that it can be used in a regular expression safely.
+
+3. Tokenize method (`tokenize`): Uses a regular expression to split the string based on the delimiters. The `filter` function removes any empty tokens.
+
+4. `hasMoreTokens` method: Checks if there are any more tokens available.
+
+5. `getNextToken` method: Returns the next token and increments the index. Throws an error if there are no more tokens.
+
+6. `getRemainingTokens` method: Returns all remaining tokens and moves the index to the end.
+
+### Implementation
+
+```javascript
+class CustomStringTokenizer {
+    constructor(str, delimiters = " "){
+        this.str = str;
+        this.delimiters = delimiters;
+        this.tokens = this.tokenize();
+        this.currentIndex = 0;
+    }
+
+    // escape special characters for use in a regular expression
+    escapeRegExp(string){
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // tokenize the input string based on the delimiters
+    tokenize(){
+        const delimiterRegex = new RegExp(`[${this.escapeRegExp(this.delimiters)}]+`, 'g');
+        return this.str.split(delimiterRegex).filter(token => token.length > 0);
+    }
+
+    // check if there are more tokens available
+    hasMoreToken(){
+        return this.currentIndex < this.tokens.length;
+    }
+
+    // get the next token
+    getNextToken(){
+        if(this.hasMoreToken()){
+            return this.tokens[this.currentIndex++];
+        }else{
+            throw new Error("No more tokens available");
+        }
+    }
+
+    // get all remaining tokens as an array
+    getRemainingTokens(){
+        if(this.hasMoreToken()){
+            const remaining = this.tokens.slice(this.currentIndex);
+            // move to next index
+            this.currentIndex = this.tokens.length;
+            return remaining;
+        }else{
+            return [];
+        }
+    }
+}
+
+// example usage
+const tokenizer = new CustomStringTokenizer("Hello, world! This is a test.", " ,!");
+
+// iterate through tokens
+while(tokenizer.hasMoreToken()){
+    console.log(tokenizer.getNextToken());
+}
+
+// getting remaining tokens
+const remaining = tokenizer.getRemainingTokens();
+console.log("Remaining tokens:", remaining);
+
+/*
+
+Output of code:-
+Hello
+world
+This
+is
+a
+test.
+Remaining tokens: []
+
+*/
 ```
