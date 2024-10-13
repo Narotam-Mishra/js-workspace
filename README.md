@@ -1239,3 +1239,124 @@ Remaining tokens: []
 
 */
 ```
+
+### [Implement a throttle function that comes with a cancel method to cancel delayed invocations](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+#### Intuition and approach
+
+1. Function Structure :-
+
+- We define a throttle function that takes two parameters: the function to be throttled (func) and the time limit (limit).
+- Inside throttle, we define an inner function throttled that will be returned. This creates a closure, allowing us to maintain state between function calls.
+
+
+2. State Variables :-
+
+- lastFunc: Stores the last scheduled function call (as a timeout ID).
+- lastRan: Stores the timestamp of when the function was last executed.
+
+
+3. Throttling Logic :-
+
+- When throttled is called for the first time (!lastRan), we execute the function immediately and set lastRan.
+- For subsequent calls, we clear any existing scheduled call (clearTimeout(lastFunc)) to prevent multiple executions.
+- We then schedule a new call using setTimeout. This new call is set to execute after the remaining time in the limit period.
+
+
+4. Time Checking :-
+
+- Before executing the function in the scheduled call, we check if enough time has passed since the last execution ((Date.now() - lastRan) >= limit).
+- If enough time has passed, we execute the function and update lastRan.
+
+5. Cancel Method:
+
+- We add a cancel method to the throttled function.
+- This method clears any pending timeout and resets the state variables.
+- It allows users to cancel any scheduled executions manually.
+
+6. Preserving Context and Arguments:
+
+- We use func.apply(this, args) to ensure that the original function is called with the correct context (this) and all provided arguments.
+
+#### The intuition behind throttling is to control the rate at which a function is called, especially useful for performance-intensive operations or API calls. This implementation ensures that :-
+
+1. The function is executed immediately on the first call.
+2. Subsequent calls within the limit period are delayed.
+3. If multiple calls are made within the limit period, only the last one is scheduled for execution.
+4. The function will never be called more frequently than the specified limit.
+
+##### The addition of the cancel method provides more control, allowing us to stop any pending executions, which can be useful when cleaning up or when you no longer need the throttled function to run.
+
+### Implementation
+
+``` JavaScript []
+/**
+ * Creates a throttled version of the given function with a cancel method.
+ * @param {Function} func - The function to throttle.
+ * @param {number} limit - The time limit (in milliseconds) between function calls.
+ * @returns {Function} - The throttled function with a cancel method.
+ */
+
+function throttle(func, limit){
+    // stores the last scheduled function call
+    let lastFunc;
+
+    // stores the timestamp of the last function execution
+    let lastRun;
+
+    //function that will be returned
+    function throttled(...args){
+        // if the function hasn't been called yet, or the limit has passed
+        if(!lastRun){
+            // execute the function immediately
+            func.apply(this, args);
+
+            // update the last execution timestamp
+            lastRun = Date.now();
+        }else{
+            // clear any existing scheduled call
+            clearInterval(lastFunc);
+
+            // schedule a new call
+            lastFunc = setTimeout(() => {
+                // check if enough time has passed since the last execution
+                if((Date.now() - lastRun) >= limit){
+                    // execute the function
+                    func.apply(this, args);
+
+                    // update the last execution timestamp
+                    lastRun = Date.now();
+                }
+            }, limit - (Date.now() - lastRun));
+        }
+    }
+
+    // cancel method to clear any pending execution
+    throttled.cancel = function(){
+        clearTimeout(lastFunc);
+        lastFunc = null;
+        lastRun = null;
+    };
+
+    return throttled;
+}
+
+// example use
+const myThrottledFunction = throttle(() => {
+    console.log("Throttle function executed!") 
+}, 2000);
+
+// call to your throttle function to test throttled function
+myThrottledFunction();
+myThrottledFunction();
+myThrottledFunction();
+
+// cancel any pending executions
+myThrottledFunction.cancel();
+
+/*
+
+Output of code :-
+Throttle function executed!
+*/
+```
