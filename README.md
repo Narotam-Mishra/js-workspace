@@ -1372,3 +1372,8 @@ Throttle function executed!
 #### Intuition and approach
 
 
+### [Implement throttling of promises which throttles API requests to max limit.](https://chatgpt.com/share/67339a54-14a4-8004-b976-2d60a8221666)
+
+#### Intuition and approach
+
+
