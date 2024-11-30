@@ -1361,19 +1361,145 @@ Throttle function executed!
 */
 ```
 
-### [Implement memoizing or caching identical API requests.](https://chatgpt.com/share/672d0072-0f00-8004-9f05-6700771ab6dd)
+### [Implement memoizing or caching identical API requests.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
-#### Intuition and approach
+#### Intuition
+
+##### When making API requests, there are two main scenarios to handle :- 
+
+1. **Sequential Requests** :- A request is made, the result is cached, and subsequent requests for the same URL retrieve the cached result without making another API call.
+
+2. **Simultaneous Requests** :- If two or more requests for the same URL happen at the same time
+- Without special handling, each request might trigger a separate API call before the first request completes.
+- This results in duplicate network requests, which defeats the purpose of caching.
+
+#### Key Insights from above steps :-
+- Sequential requests use the cached result efficiently.
+- Simultaneous requests share the same "in-progress" request to avoid duplicate API calls.
+
+#### Step-by-Step Approach 
+
+- Step 1 : **Caching Basics** - The cache is implemented as a Map, where :
+    - **Key** : The API URL
+    - **Value** : The result of the API call (or the promise of an in-progress API request).
+
+- Step 2 : **Check for Cached Response** - Before making an API request, check if the `cache` already contains the URL, so if the URL exists in the `cache`, return the cached response immediately. We can use below snippet for this :-
+
+``` JavaScript []
+if (this.cache.has(apiURL)) {
+    return this.cache.get(apiURL);
+}
+```
+
+- Step 3 : **Handle Simultaneous Requests** - If the request isn't cached, make the API request and temporarily store the promise in the cache, we can use below snippet for this :-
+
+``` JavaScript []
+const fetchPromise = fetch(apiURL)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Failed to fetch data from ${apiURL}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        this.cache.set(apiURL, data); // Cache the resolved data
+        return data;
+    })
+    .catch(error => {
+        this.cache.delete(apiURL); // Remove the in-progress entry on error
+        throw error;
+    });
+```
+
+- Step 4 : **Store Final Data** - Once the API call is successful :-
+    - Replace the cached promise with the actual data.
+    - This ensures future requests for the same URL retrieve the resolved data immediately
+
+- Step 5 : **Handle Errors** - If the API request fails :-
+    - Remove the "in-progress" promise from the cache to prevent stale or invalid entries.
+    - Throw the error so it can be handled by the caller.
+
+- Step 6 : **Return the Result** - The result of the `fetchPromise` (either data or an error) is returned to the caller.
+
+### Implementation
+
+``` JavaScript []
+class ApiCache {
+    constructor(){
+        this.cache = new Map();
+    }
+
+    // utility function to fetch API responses using cache
+    async fetchWithCache(apiURL){
+        if (this.cache.has(apiURL)) {
+            console.log('Cache hit for:', apiURL);
+            return this.cache.get(apiURL);
+        }
+
+        console.log('Making API request for:', apiURL); 
+
+        // store the in-progress fetch promise in the cache
+        const fetchPromise = fetch(apiURL)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch data from ${apiURL}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // cache the resolved data
+                this.cache.set(apiURL, data); 
+                return data;
+            })
+            .catch((error) => {
+                // remove the in-progress entry on error
+                this.cache.delete(apiURL); 
+                throw error;
+            });
+
+        this.cache.set(apiURL, fetchPromise);
+
+        return fetchPromise;
+    }
+
+    // utility function to clear the cache
+    clearCache(){
+        this.cache.clear();
+        console.log('Cache cleared');
+    }
+}
 
 
+// test code
+const apiCache = new ApiCache();
+
+// First fetch: makes an API call and caches the result
+apiCache.fetchWithCache('https://jsonplaceholder.typicode.com/users')
+    .then(data => console.log("First fetch:", data));
+
+// Second fetch: uses the cached result
+apiCache.fetchWithCache('https://jsonplaceholder.typicode.com/users')
+    .then(data => console.log("Second fetch:", data));
+
+Promise.all([
+    apiCache.fetchWithCache(`https://jsonplaceholder.typicode.com/users`),
+    apiCache.fetchWithCache(`https://jsonplaceholder.typicode.com/users`)
+])
+.then((results) => {
+    console.log("Simultaneous call - Data:", results);
+})
+.catch((error) => {
+    console.log("Simultaneous call - Error:", error);
+});
+```
 
 ### [Implement a curried function with placeholders support.](https://chatgpt.com/share/672fa599-871c-8004-8ad0-7de19ec2127f)
 
-#### Intuition and approach
+#### Intuition and Approach
 
 
 ### [Implement throttling of promises which throttles API requests to max limit.](https://chatgpt.com/share/67339a54-14a4-8004-b976-2d60a8221666)
 
-#### Intuition and approach
+#### Intuition and Approach
 
 
