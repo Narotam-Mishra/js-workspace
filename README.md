@@ -1495,7 +1495,9 @@ Promise.all([
 
 ### [Implement a curried function with placeholders support.](https://chatgpt.com/share/672fa599-871c-8004-8ad0-7de19ec2127f)
 
-#### Intuition and Approach
+#### Intuition
+
+#### Approach
 
 
 ### [Implement throttling of promises which throttles API requests to max limit.](https://chatgpt.com/share/67339a54-14a4-8004-b976-2d60a8221666)
