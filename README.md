@@ -1493,16 +1493,175 @@ Promise.all([
 });
 ```
 
+### [Implement throttling of promises which throttles API requests to max limit](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+#### Intuition
+
+- To implement throttling of promises in JavaScript, we need to limit the maximum number of simultaneous API requests to avoid overwhelming the server or breaching API rate limits. By setting a throttle limit, we ensure only a certain number of promises are active at any given time.
+
+#### Approach
+
+###### We can follow below steps for implementation :-
+
+1. **Define a Queue** :- When a new request is made but the limit has been reached, queue it until a current request finishes.
+
+2. **Track Active Promises** :- Use a counter to keep track of the number of currently active promises.
+
+3. **Execute Promises in Batches** :- When a promise completes, check the queue to see if a new promise can be started.
+
+4. **Control Flow with Promise** :- Use `Promise` to control asynchronous flow, ensuring each new request waits for the next available "slot."
+
+### Implementation
+
+``` JavaScript []
+class PromiseThrottler {
+  /**
+   * creates a PromiseThrottler class with a specified limit.
+   * maximum number of concurrent promises allowed.
+   */
+  constructor(limit) {
+    this.limit = limit;
+    this.activeCount = 0;
+    this.queue = [];
+  }
+
+  /*
+   * adds a promise-returning function to the queue, throttling based on the limit.
+   */
+  addPromise(promiseFunction) {
+    // wrap the promise function to track its completion
+    const promiseWrapper = () => {
+      // increment active count
+      this.activeCount++;
+
+      // execute the promise function
+      return promiseFunction()
+        .then((res) => {
+          this.activeCount--;
+          this.next();
+          return res;
+        })
+        .catch((error) => {
+          this.activeCount--;
+          this.next();
+          throw error;
+        });
+    };
+
+    // if within limit , execute promise immediately; otherwise, enqueue
+    if (this.activeCount < this.limit) {
+      return promiseWrapper();
+    } else {
+      // enqueue the promise function if limit is reached
+      return new Promise((resolve, reject) => {
+        this.queue.push(() => promiseWrapper().then(resolve).catch(reject));
+      });
+    }
+  }
+
+  /**
+   * executes the next promise in the queue, if available and within the limit.
+   */
+  next() {
+    if (this.queue.length > 0 && this.activeCount < this.limit) {
+      // get the next function from the queue
+      const nextPromiseFunc = this.queue.shift();
+
+      // Execute the function
+      nextPromiseFunc();
+    }
+  }
+}
+
+// example usage
+
+const throttler = new PromiseThrottler(3);
+
+// simulate a promise-returning function (e.g., an API call)
+function makeApiCall(id){
+    return new Promise((resolve) => {
+        console.log(`Starting request ${id}`);
+        setTimeout(() => {
+            console.log(`Completing request ${id}`);
+            resolve(`Result of ${id}`);
+        }, 1000);
+    })
+}
+
+// add multiple requests to the throttler
+const requests = Array.from({ length: 9 }, (_, i) => throttler.addPromise(() => makeApiCall(i)))
+
+// wait for all requests to complete
+Promise.all(requests).then((res) => {
+    console.log(`All requests completed:`, res);
+});
+
+
+/*
+Output of above code :-
+Starting request 0
+Starting request 1
+Starting request 2
+Completing request 0
+Starting request 3
+Completing request 1
+Starting request 4
+Completing request 2
+Starting request 5
+Completing request 3
+Starting request 6
+Completing request 4
+Starting request 7
+Completing request 5
+Starting request 8
+Completing request 6
+Completing request 7
+Completing request 8
+All requests completed: [
+  'Result of 0',
+  'Result of 1',
+  'Result of 2',
+  'Result of 3',
+  'Result of 4',
+  'Result of 5',
+  'Result of 6',
+  'Result of 7',
+  'Result of 8'
+]
+*/
+```
+
+### Explanation of above code :-
+
+1. **Constructor** :- The `PromiseThrottler` class is initialized with a `limit` defining the maximum concurrent promises allowed.
+
+2. **Adding Promises** :-
+    - When `addPromise()` is called, it checks if `activeCount` is below the limit.
+    
+    - if within `limit`, it executes the `promiseFunc` immediately, incrementing `activeCount`.
+
+    - if the `limit` is reached, it adds the `promiseFunc` to a queue instead.
+
+3. **Handling Queue** :-
+    - After each promise completes (either resolves or rejects), `next()` is called.
+
+    - this checks if there are queued promises and if more requests can be started (based on the limit).
+
+    - if so, it dequeues the next function and executes it.
+
+4. **Simulating Usage** :-
+    - The example shows `makeApiCall`, a mock asynchronous function.
+
+    - `PromiseThrottler.addPromise()` is called for each simulated API call, ensuring at most 3 requests run concurrently.
+
+    - the `Promise.all(requests)` at the end waits for all requests to complete before logging results.
+
 ### [Implement a curried function with placeholders support.](https://chatgpt.com/share/672fa599-871c-8004-8ad0-7de19ec2127f)
 
 #### Intuition
 
 #### Approach
 
-
-### [Implement throttling of promises which throttles API requests to max limit.](https://chatgpt.com/share/67339a54-14a4-8004-b976-2d60a8221666)
-
-#### Intuition and Approach
 
 ### [Implement the polyfills for the call, apply, bind methods from scratch](https://chatgpt.com/share/67509e47-6988-8004-82cc-820bc7187b2b)
 
