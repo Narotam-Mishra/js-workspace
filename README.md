@@ -1666,5 +1666,6 @@ All requests completed: [
 ### [Implement the polyfills for the call, apply, bind methods from scratch](https://chatgpt.com/share/67509e47-6988-8004-82cc-820bc7187b2b)
 
 #### Intuition
+- JavaScript functions can be called with different this values using:
 
 #### Approach
