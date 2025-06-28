@@ -1656,7 +1656,7 @@ All requests completed: [
 
     - the `Promise.all(requests)` at the end waits for all requests to complete before logging results.
 
-### [Implement polyfill for sort() method in JS]()
+### [Implement polyfill for sort() method in JS](https://github.com/Narotam-Mishra/js-workspace#implement-polyfill-for-sort-method-in-js)
 
 #### Intuition
 - Sorting Algorithm :- Uses Merge Sort (a stable, efficient O(n log n) algorithm) instead of the native JS sort (which may use QuickSort, MergeSort, or Timsort depending on engine).
@@ -1816,16 +1816,90 @@ Original Order Sort: [
 
 ```
 
-### [Implement a curried function with placeholders support.](https://chatgpt.com/share/672fa599-871c-8004-8ad0-7de19ec2127f)
+### [Implement your own reduce method in JS / Write polyfill for reduce method in JS.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
-#### Intuition
+### Intuition
 
-#### Approach
+The `reduce()` function takes an array and "reduces" it to a single value by applying a callback function to each element sequentially. Think of it as folding or accumulating values - you start with an initial value (accumulator) and combine it with each array element one by one.
 
+### Approach
 
-### [Implement the polyfills for the call, apply, bind methods from scratch](https://chatgpt.com/share/67509e47-6988-8004-82cc-820bc7187b2b)
+1. **Handle the accumulator**: If an initial value is provided, use it. If not, use the first array element as the starting accumulator.
+2. **Iterate through elements**: Start from the appropriate index (0 if initial value provided, 1 if not).
+3. **Apply the callback**: For each element, call the reducer function with the current accumulator, current element, index, and original array.
+4. **Update accumulator**: The result of each callback becomes the new accumulator.
+5. **Return final result**: After processing all elements, return the final accumulator value.## Key Points Explained
 
-#### Intuition
-- JavaScript functions can be called with different this values using:
+### Steps
 
-#### Approach
+**1. Accumulator Handling**: The trickiest part is handling the initial value. If provided, we start iterating from index 0. If not provided, we use the first array element as the accumulator and start from index 1.
+
+**2. Callback Parameters**: The reducer callback receives four parameters:
+   - `accumulator`: The accumulated result so far
+   - `currentValue`: The current element being processed
+   - `currentIndex`: The index of the current element
+   - `array`: The original array being reduced
+
+**3. Error Handling**: We need to handle edge cases like empty arrays without initial values, invalid inputs, and non-function callbacks.
+
+**4. Immutability**: The original array is never modified - we only read from it and accumulate results.
+
+``` JavaScript []
+
+Array.prototype.customReduce = function(callback, initialValue){
+    // step 1 - validate input
+    if(typeof callback !== 'function'){
+        throw new TypeError("callback must be function!!");
+    }
+
+    // step 2 - handle empty array case
+    if(this.length === 0 && initialValue === undefined){
+        throw new TypeError("Reduce of empty array with no initial value!!");
+    }
+
+    // step 3 - initialize accumulator and starting index
+    let accumulator;
+    let startIndex;
+
+    if(initialValue !== undefined){
+        // if initial value is given, use it as accumulator
+        accumulator = initialValue;
+
+        // start first index from 0
+        startIndex = 0;
+    }else{
+        // otherwise treat array first element as accumulator
+        accumulator = this[0];
+
+        // start first index from 1 in case accumulator is not defined
+        startIndex = 1;
+    }
+
+    // step 4 - iterate through array elements and process it
+    for(let i=0; i<this.length; i++){
+        // step 5 - apply callback function
+        // callback receives : (accumulator, currentValue, currentIndex, array)
+        accumulator = callback(accumulator, this[i], i, this);
+    }
+
+    // step 5 - return final accumulated result
+    return accumulator;
+}
+
+const nums = [1,2,3,4,5];
+
+// using built-in reduce method
+const sum1 = nums.reduce((acc, curr) => acc+curr, 0);
+console.log("Sum1 value:", sum1);
+
+// using custom reduce `customReduce` method
+const sum2 = nums.customReduce((acc, curr) => acc+curr, 0);
+console.log("Sum2 value:", sum2);
+
+/*
+Output of above code :-
+Sum1 value: 15
+Sum2 value: 15
+*/
+
+```
