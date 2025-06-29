@@ -1903,3 +1903,68 @@ Sum2 value: 15
 */
 
 ```
+### [Implement your own map method in JS / Write polyfill for map method in JS.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+### Intuition
+The `map` method is one of the most fundamental array transformation methods. Here's the core intuition behind implementing it:
+
+### **Core Concept**
+- **Transform each element**: Apply a function to every element in an array
+- **Create new array**: Never modify the original array (immutability)
+- **Preserve structure**: Maintain the same length and sparse array behavior
+
+### **Key Implementation Approach**
+
+1. **Input Validation**: Ensure we have a valid array and callback function
+2. **Result Array Creation**: Pre-allocate space for transformed elements
+3. **Element Processing**: Iterate through each index, applying the transformation
+4. **Sparse Array Handling**: Only process indices that actually exist
+5. **Context Binding**: Properly bind the `thisArg` parameter when calling the callback
+
+``` JavaScript []
+Array.prototype.customMap = function(callback, thisArg){
+    // step 1 - validate callback function
+    if(typeof callback !== 'function'){
+        throw new TypeError('Callback must be a function!!')
+    }
+
+    // step 2 - create a new result array `res` to store the result
+    const res = [];
+
+    // step 3 - iterate through each element of array
+    for(let i=0; i<this.length; i++){
+        // step 4 - call callback with proper context and arguments
+        // callback receives: (currentValue, index, array(this))
+        const mappedValue = callback.call(thisArg, this[i],i, this);
+        res[i] = mappedValue;
+    }
+
+    // step 5 - return result array `res`
+    return res;
+}
+
+const arr = [1,2,3,4,5];
+const squared = arr.customMap(x => x * x);
+
+console.log('Original:', arr);
+console.log('Squared:', squared);
+
+const nums = [2,3,1,4,7,5];
+
+const nativeResult = nums.map(x => x * 3);
+const customResult = nums.customMap(x => x * 3);
+
+console.log('Native map result:', nativeResult);
+console.log('Custom map result:', customResult);
+
+/*
+
+Output of above code :-
+
+Original: [ 1, 2, 3, 4, 5 ]
+Squared: [ 1, 4, 9, 16, 25 ]
+Native map result: [ 6, 9, 3, 12, 21, 15 ]
+Custom map result: [ 6, 9, 3, 12, 21, 15 ]
+
+*/
+```
