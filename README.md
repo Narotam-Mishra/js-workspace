@@ -1844,8 +1844,9 @@ The `reduce()` function takes an array and "reduces" it to a single value by app
 
 **4. Immutability**: The original array is never modified - we only read from it and accumulate results.
 
-``` JavaScript []
+### Implementation
 
+``` JavaScript []
 Array.prototype.customReduce = function(callback, initialValue){
     // step 1 - validate input
     if(typeof callback !== 'function'){
@@ -1921,6 +1922,8 @@ The `map` method is one of the most fundamental array transformation methods. He
 4. **Sparse Array Handling**: Only process indices that actually exist
 5. **Context Binding**: Properly bind the `thisArg` parameter when calling the callback
 
+### Implementation
+
 ``` JavaScript []
 Array.prototype.customMap = function(callback, thisArg){
     // step 1 - validate callback function
@@ -1966,5 +1969,87 @@ Squared: [ 1, 4, 9, 16, 25 ]
 Native map result: [ 6, 9, 3, 12, 21, 15 ]
 Custom map result: [ 6, 9, 3, 12, 21, 15 ]
 
+*/
+```
+
+### [Implement your own `filter` method in JS / Write polyfill for `filter` method in JS.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+### Intuition
+The filter method creates a new array with all elements that pass a test implemented by a provided function. 
+
+### Approach
+1. **Core Logic**: Iterate through each element and apply a test function
+2. **Conditional Addition**: Only add elements to the result array if they pass the test
+3. **Preserve Context**: Maintain proper `this` binding and handle edge cases
+4. **Return New Array**: Never mutate the original array
+
+### **Step-by-Step Breakdown:**
+1. **Input Validation**: Check if `this` is null/undefined and if callback is a function
+2. **Object Conversion**: Convert `this` to an object to handle edge cases
+3. **Length Handling**: Extract and validate the length property
+4. **Iteration**: Loop through each valid index
+5. **Callback Execution**: Call the callback with proper context (`thisArg`)
+6. **Conditional Addition**: Add elements that pass the test to result array
+
+## Key Considerations:
+- Properly bind the `thisArg` parameter
+- Validate that the callback is a function
+- Handle edge cases like empty arrays or invalid inputs## Detailed Explanation of the Implementation
+
+### Implementation
+
+``` JavaScript []
+Array.prototype.customFilter = function(callback, thisArg){
+    // step 1 - validate inputs
+    if(this === null){
+        throw new TypeError('Array.prototype.customFilter called on null or undefined')
+    }
+
+    // step 2 - convert 'this' to an object (handles primitive values)
+    const obj = Object(this);
+
+    // step 3 - get length property and convert to integer
+    const len = parseInt(obj.length) || 0;
+
+    // step 4 - validate that callback is a function
+    if(typeof callback !== 'function'){
+        throw new TypeError('callback must be function!!')
+    }
+
+    // step 5 - store result in `res`
+    const res = [];
+
+    // step 6 - iterate through each index
+    for(let i=0; i<len; i++){
+        const element = obj[i];
+
+        // step 7 - call the callback function with proper context
+        const shouldInclude = callback.call(thisArg, element, i, obj);
+
+        // step 8 - if callback returns truthy value, add element to result
+        if(shouldInclude){
+            res.push(element);
+        }
+    }
+
+    // step 9 - return resultant array `res`
+    return res;
+}
+
+const nums = [1,2,3,4,5,6,7,8,9,10];
+const evenNumbers = nums.customFilter((num) => num % 2 === 0);
+console.log("Even numbers using customFilter:", evenNumbers);
+
+const evenNums = nums.filter((num) => num % 2 === 0);
+console.log("Even numbers using native filter:", evenNumbers);
+
+/*
+Output of above code :-
+Original input array: [
+  1, 2, 3, 4,  5,
+  6, 7, 8, 9, 10
+]
+Even numbers using customFilter: [ 2, 4, 6, 8, 10 ]
+Even numbers using native filter: [ 2, 4, 6, 8, 10 ]
 */
 ```
