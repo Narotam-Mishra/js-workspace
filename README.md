@@ -1656,7 +1656,7 @@ All requests completed: [
 
     - the `Promise.all(requests)` at the end waits for all requests to complete before logging results.
 
-### [Implement polyfill for sort() method in JS](https://github.com/Narotam-Mishra/js-workspace#implement-polyfill-for-sort-method-in-js)
+### [Implement polyfill for `sort` method in JS](https://github.com/Narotam-Mishra/js-workspace#implement-polyfill-for-sort-method-in-js)
 
 #### Intuition
 - Sorting Algorithm :- Uses Merge Sort (a stable, efficient O(n log n) algorithm) instead of the native JS sort (which may use QuickSort, MergeSort, or Timsort depending on engine).
@@ -1816,7 +1816,7 @@ Original Order Sort: [
 
 ```
 
-### [Implement your own reduce method in JS / Write polyfill for reduce method in JS.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement your own `reduce` method in JS / Write polyfill for `reduce` method in JS.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 ### Intuition
 
@@ -1904,7 +1904,7 @@ Sum2 value: 15
 */
 
 ```
-### [Implement your own map method in JS / Write polyfill for map method in JS.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+### [Implement your own `map` method in JS / Write polyfill for `map` method in JS.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
 
 ### Intuition
 The `map` method is one of the most fundamental array transformation methods. Here's the core intuition behind implementing it:
@@ -1991,7 +1991,7 @@ The filter method creates a new array with all elements that pass a test impleme
 5. **Callback Execution**: Call the callback with proper context (`thisArg`)
 6. **Conditional Addition**: Add elements that pass the test to result array
 
-## Key Considerations:
+### Key Considerations:
 - Properly bind the `thisArg` parameter
 - Validate that the callback is a function
 - Handle edge cases like empty arrays or invalid inputs## Detailed Explanation of the Implementation
