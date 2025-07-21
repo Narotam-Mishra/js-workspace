@@ -2053,3 +2053,143 @@ Even numbers using customFilter: [ 2, 4, 6, 8, 10 ]
 Even numbers using native filter: [ 2, 4, 6, 8, 10 ]
 */
 ```
+
+### [Implement your own `Promise.all` method in JS / Write polyfill for `Promise.all` method in JS.](https://github.com/Narotam-Mishra/js-workspace?tab=readme-ov-file#tricky-js-interview-coding-questions)
+
+### Intuition
+`Promise.all` is like waiting for a group of friends to finish their tasks before proceeding. If everyone succeeds, you get all their results. If anyone fails, the whole group fails immediately. Promise.all() takes an array of promises and returns a single promise that :-
+1. Resolves when ALL input promises resolve (with array of all resolved values)
+2. Rejects immediately when ANY input promise rejects (fail-fast behavior)
+3. Maintains the order of results matching the input array order
+
+### Approach
+**Step 1-2: Setup & Edge Cases**
+- Return a new Promise wrapper
+- Handle empty arrays and invalid inputs
+
+**Step 3: Initialize Tracking**
+- `results[]` - Pre-allocated array to maintain order
+- `completedCount` - Counter for successful completions
+- `hasRejected` - Flag to prevent multiple rejections
+
+**Step 4-5: Process Each Promise**
+- Use `forEach` to iterate through input array
+- Wrap each item with `Promise.resolve()` to handle non-promise values
+
+**Step 6-8: Success Handling**
+- Store results at correct index (not push order!)
+- Increment completion counter
+- Resolve when all promises complete
+
+**Step 9: Failure Handling**
+- Reject immediately on first error
+- Use flag to prevent multiple rejections
+
+### **Key Behaviors to Implement**
+
+1. **All or Nothing**: Only resolves when 'ALL' promises resolve
+2. **Fail-Fast**: Rejects immediately when ANY promise rejects  
+3. **Order Preservation**: Results array matches input array order
+4. **Concurrent Execution**: All promises run simultaneously, not sequentially
+
+### Implementation
+
+``` JavaScript []
+function customPromiseAll(promises){
+    // step 1 - return a new Promise that will resolve/reject based on input promises
+    return new Promise((resolve, reject) => {
+
+        // step 2 - handle edge case : empty array should resolve immediately
+        if(!Array.isArray(promises)){
+            reject(new TypeError('Input must be an array'));
+            return;
+        }
+
+        if(promises.length === 0){
+            resolve([]);
+            return;
+        }
+
+        // step 3 - initialize tracking variables
+        // pre-allocate array to maintain order
+        const result = new Array(promises.length);
+
+        // track how many promises have completed
+        let completedCount = 0;
+
+        // prevent multiple rejections
+        let hasRejected;
+
+        // step 4 - process each promise from input array `promises`
+        promises.forEach((promise, index) => {
+            // step 5 - convert non-promise values to resolved promises
+            Promise.resolve(promise)
+               .then(value => {
+                // step 6 - check if we haven't already rejected
+                if(hasRejected) return
+
+                // step 7: Store result at correct index to maintain order
+                result[index] = value;
+                completedCount++;
+
+                // step 8 - check if all promises have completed successfully
+                if(completedCount === promises.length){
+                    resolve(result);
+                }
+            })
+            .catch(error => {
+                // step 9 - fail-fast behavior - reject immediately on first error
+                if(!hasRejected){
+                    hasRejected = true;
+                    reject(error);
+                }
+            });
+        });
+    });
+}
+
+// resolved promises example
+const test1 = customPromiseAll([
+  Promise.resolve(1),
+  Promise.resolve(2),
+  Promise.resolve(3)
+]);
+
+test1
+  .then(results => console.log('✅ Success:', results))
+  .catch(error => console.log('❌ Error:', error));
+
+// rejected promise example
+const test2 = customPromiseAll([
+  Promise.resolve(1),
+  Promise.reject('Error occurred'),
+  Promise.resolve(3)
+]);
+
+test2
+  .then(results => console.log('✅ Success:', results))
+  .catch(error => console.log('❌ Error:', error))
+
+const delayed = (value, delay) => new Promise(resolve => 
+  setTimeout(() => resolve(value), delay)
+);
+
+const test3 = customPromiseAll([
+  delayed('First', 300),   // Takes 300ms
+  delayed('Second', 100),  // Takes 100ms  
+  delayed('Third', 200)    // Takes 200ms
+]);
+
+test3
+  .then(results => console.log('✅ Success (order maintained):', results))
+  .catch(error => console.log('❌ Error:', error));
+
+/*
+Output of above code :-
+✅ Success: [ 1, 2, 3 ]
+❌ Error: Error occurred
+✅ Success (order maintained): [ 'First', 'Second', 'Third' ]
+
+*/
+```
+
