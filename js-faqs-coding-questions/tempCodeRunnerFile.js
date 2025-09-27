@@ -1,11 +1,26 @@
-let userDetails3 = {
-    name: 'Nick',
-    age: 27,
-    designation: "Software Engineer",
+function solve1(){
+    const toggle = (...args) => {
+        let currIndex = -1;
+
+        // find length of arguments `args` array
+        const len = args.length;
+
+        return () => {
+            currIndex = (currIndex + 1) % len;
+            // toggle - print value from args array
+            console.log(args[currIndex]);
+        }
+    }
+
+    let Skillsfn = toggle("JS", "React", "Node");
+    Skillsfn();
+    Skillsfn();
+    Skillsfn();
+
+    let onOffFn = toggle("on", "off", "neutral");
+    onOffFn();
+    onOffFn();
+    onOffFn();
 }
 
-let printDetails = function(state){
-    console.log("UserName:", this.name, "from", +state);
-}
-
-printDetails.call(userDetails3, "Delhi");
+solve1();
